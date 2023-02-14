@@ -69,6 +69,7 @@
     "@dcloudio/uni-stat": "^2.0.2-3061520221228001",
     "@vue/shared": "^3.0.0",
     "core-js": "^3.6.5",
+    "dayjs": "^1.11.7",
     "flyio": "^0.6.2",
     "node-sass": "^4.14.1",
     "uview-ui": "^2.0.31",

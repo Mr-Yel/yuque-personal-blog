@@ -1,85 +1,84 @@
 <template>
-  <view class="content">
-    <view
-      class="cardwrapper"
-      @click="copyLink()"
+  <view>
+    <NavBar :phoneHeight="phoneHeight"/>
+    <view 
+      class="content"
+      :style="{paddingTop: `${phoneHeight + 40}px`}"
     >
-      <view class="cardcontent">
-        <view class="title">yelll的个人博客</view>
-        <view class="subtitle"></view>
-        <view class="desc">工作😁生活</view>
-        <view class="desc">持续学习 持续分享</view>
+      <view class="content-list">
+        <view class="content-item" v-for="(item, index) in contentConfig.data" :key="index">
+          <ArticleCard v-if="item.type == 'ArticleCard'" :item="item"></ArticleCard>
+          <ArticleList v-if="item.type == 'ArticleList'" :item="item"></ArticleList>
+          <ReposList v-if="item.type == 'ReposList'" :item="item"></ReposList>
+        </view>
       </view>
     </view>
-
-    <!-- <slider-card :dataSource="dataList"></slider-card> -->
-
-    <view class="numdesc">文档数</view>
-    <view class="items_count">{{ dataDetail.items_count || "--" }}</view>
-
-    <view class="numdesc">查看数</view>
-    <view class="hits">{{ hits || "--" }}</view>
-    <view class="popup" @click="clickOpen">弹出层</view>
-    <u-popup
-      :show="show"
-      mode="right"
-      @close="close"
-      @open="open"
-      duration="1000"
-    >
-      <view>
-        <text>人生若只如初见，何事秋风悲画扇</text>
-      </view>
-    </u-popup>
   </view>
+
 </template>
 
 <script>
-import service from '../../service'
+import service from '@/service'
+import NavBar from '@/components/NavBar'
+import ArticleCard from '@/components/CardComponents/ArticleCard'
+import ArticleList from '@/components/CardComponents/ArticleList'
+import ReposList from '@/components/CardComponents/ReposList'
+import { contentConfig } from '@/config/contentConfig'
 
 export default {
+  components: {
+    NavBar,
+    ArticleCard,
+    ArticleList,
+    ReposList,
+  },
   data () {
     return {
       dataDetail: {
         items_count: 30,
       },
       hits: 340,
-      show: false
-    }
-  },
-  onLoad () {
-
-  },
-  methods: {
-    open () {
-      service.getArticleList()
-      // console.log('open');
-    },
-    close () {
-      this.show = false
-      // console.log('close');
-    },
-    clickOpen () {
-      this.show = true
+      show: false,
+      phoneHeight: 0,
+      contentConfig: contentConfig,
     }
   },
   mounted () {
-    console.log(111);
+    console.log('2222222',this.phoneHeight1);
+    this.initSafeHeight() // 初始化安全高度
+  },
+  methods: {
+    initSafeHeight () {
+      let _that = this
+      uni.getSystemInfo({
+        success: function (res) {
+          _that.phoneHeight = res.statusBarHeight
+        }
+      })
+    },
+    aaa () {
+      uni.navigateTo({ url: '../qqMailbox/index' ,fail:(error)=>console.log(error)})
+    }
   }
 }
 </script>
 
 <style lang="scss">
-page {
-  background: rgba(0, 160, 233, 0.14);
-}
-
 .content {
+  box-sizing: border-box;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  .content-list {
+    width: 100%;
+    .content-item {
+      width: 100%;
+    }
+  }
 }
 
 .logo {
@@ -138,16 +137,6 @@ page {
   align-items: center;
 }
 
-.cardcontent .title::before {
-  content: "";
-  display: inline-block;
-  background-image: url("../../static/xing.png");
-  width: 48upx;
-  height: 48upx;
-  background-size: 100%;
-  background-position: 50%;
-}
-
 .subtitle {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -179,6 +168,7 @@ page {
   font-size: 25upx;
   padding-top: 20upx;
   color: #888;
+  font-family: iconfont;
 }
 .items_count {
   color: #666;

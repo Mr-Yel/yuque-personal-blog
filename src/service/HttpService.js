@@ -1,15 +1,17 @@
+import { AuthToken } from '@/config/index'
+
 /**
  * 基于uni.request 的 请求拦截器和响应拦截器
  * @author huang xiangkun
  * @date 2023-01-16
  */
- const baseConfig = {
+const baseConfig = {
 	baseUrl: "",
 	dataType: "json",
 	headers: {
-		"authorization":"",
+		"authorization": "",
 		"content-type": "application/json",
-		"X-Auth-Token": "G66pqV9Iz2qwuvJbQnHKQX1ykdbFbLo4wXRH6l4w",
+		"X-Auth-Token": AuthToken,
 		"Content-Type": "application/json",
 	}
 }
@@ -19,24 +21,26 @@ const deepCloneAndAssignObject = (obj1, obj2) => {
 }
 
 class HttpService {
-	
 	constructor(config = {}) {
 		this.config = deepCloneAndAssignObject(baseConfig, config);
 		this.interceptor = {
 			beforeRequest(config) {
+				uni.showLoading();
 				return config
 			},
 			beforeResponse(res) {
+				uni.hideLoading();
 				return res
 			},
 			beforeResponseError(e) {
+				uni.hideLoading();
 				return e
 			},
 		}
 	}
 	
 	// 发起请求
-	request(method = 'GET', url = '', data = {}) {
+	request(method = 'GET', url = '', data = {}, refresh) {
 		return new Promise((resolve, reject) => {
 			// 检查传参
 			const requestError = getRequestError(method,url,data)
@@ -80,12 +84,12 @@ class HttpService {
 		})
 	}
 	
-	get(option) {
-		return this.request('GET', option.url, option.data)
+	get(option, refresh = true) {
+		return this.request('GET', option.url, option.data, refresh)
 	}
 	
-	post(option) {
-		return this.request('POST', option.url, option.data)
+	post(option, refresh = true) {
+		return this.request('POST', option.url, option.data, refresh)
 	}
 }
 

@@ -1,13 +1,42 @@
 <script>
+import service from '@/service'
+import { storage } from '@/utils/storage'
+
 export default {
-  onLaunch: function () {
-    console.log('App Launch')
+  data () {
+    return {
+      phoneHeight1: 0,
+    }
+  },
+  onLaunch: async function () {
+    this.initSafeHeight() // 初始化安全高度
+    let res = await service.getUserInfo()
+    if(res && res.data && res.data.data) {
+      const userInfo = res.data.data
+      storage.set('userInfo', userInfo)
+      storage.set('userId', userInfo && userInfo.id)
+      console.log('App Launch')
+    }
   },
   onShow: function () {
     console.log('App Show')
   },
   onHide: function () {
     console.log('App Hide')
+  },
+  methods: {
+    initSafeHeight () {
+      return new Promise()
+      let _that = this
+      uni.getSystemInfo({
+        success: function (res) {
+          _that.phoneHeight1 = res.statusBarHeight
+        }
+      })
+    },
+    aaa () {
+      uni.navigateTo({ url: '../qqMailbox/index' ,fail:(error)=>console.log(error)})
+    }
   }
 }
 </script>
@@ -19,8 +48,26 @@ export default {
 // @import './static/css/base.css';
 //   /* scss公共类 */
 @import "./scss/base/setting.scss";
-body {
-  color: $color-primary;
+@import "./scss/font/iconfont-weapp-icon.css";
+@import "./scss/base/bg.scss";
+page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  zoom: 1;
+  background-color: #fff;
+  background: $light-bg;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-position: center 0;
 }
 /*每个页面公共css */
 </style>

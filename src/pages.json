@@ -23,39 +23,18 @@
 			"style": {
 				"navigationBarTitleText": "关于"
 			}
+		},
+		{
+			"path": "pages/qqMailbox/index",
+			"style": {
+				"navigationBarTitleText": "QQ"
+			}
 		}
 	],
 	"globalStyle": {
+		"navigationStyle": "custom",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
-	"tabBar": {
-		"color": "#666",
-		"selectedColor": "#000",
-		"borderStyle": "black",
-		"backgroundColor": "#F8F8F8",
-		"list": [
-			{
-				"pagePath": "pages/index/index",
-				"iconPath": "static/index.png",
-				"selectedIconPath": "static/indexactive1.png",
-				"text": "首页"
-			},
-			{
-				"pagePath": "pages/articleList/articleList",
-				"iconPath": "static/art.png",
-				"selectedIconPath": "static/artactive.png",
-				"text": "文章"
-			},
-			{
-				"pagePath": "pages/about/about",
-				"iconPath": "static/about.png",
-				"selectedIconPath": "static/aboutactive1.png",
-				"text": "关于"
-			}
-		]
+		"navigationBarTitleText": "uni-app"
 	},
 	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"

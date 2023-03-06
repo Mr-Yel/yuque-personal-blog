@@ -47,7 +47,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.29.0",
   "appid": "wx4eced667185b948d",
-  "projectname": "uniapp-test",
+  "projectname": "yuque-personal-blog",
   "condition": {},
   "srcMiniprogramRoot": "dist/dev/mp-weixin/",
   "editorSetting": {

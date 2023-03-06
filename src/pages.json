@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -7,27 +7,21 @@
 			}
 		},
 		{
-			"path": "pages/articleList/articleList",
-			"style": {
-				"navigationBarTitleText": "文章列表"
-			}
-		},
-		{
-			"path": "pages/articleDetail/articleDetail",
+			"path": "pages/articleDetail/index",
 			"style": {
 				"navigationBarTitleText": "文章详情"
 			}
 		},
 		{
-			"path": "pages/about/about",
+			"path": "pages/reposDetailList/index",
 			"style": {
-				"navigationBarTitleText": "关于"
+				"navigationBarTitleText": "仓库详情列表"
 			}
 		},
 		{
 			"path": "pages/qqMailbox/index",
 			"style": {
-				"navigationBarTitleText": "QQ"
+				"navigationBarTitleText": "sss"
 			}
 		}
 	],
@@ -37,6 +31,10 @@
 		"navigationBarTitleText": "uni-app"
 	},
 	"easycom": {
-		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+		"autoscan": true,
+		"custom": {
+			"^my-(.*)": "@/components/my-$1/index.vue",
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+		}
 	}
 }

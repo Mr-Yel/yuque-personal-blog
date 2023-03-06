@@ -1,5 +1,7 @@
 <template>
-  <view class="header">
+  <view class="header"
+    :style="{height: headerHeight}"
+  >
     <view
       class="nav"
       :style="{paddingTop: `${safeHeight}px`}"
@@ -13,10 +15,10 @@
         <text class="setting">⚙️</text>
         <text class="search">🔍</text>
       </view>
-      <view class="nav-content">Yellll🍦</view>
+      <view class="nav-content" @click="goHome()">Yellll🍦</view>
       <view class="nav-right"></view>
     </view>
-    <view class="site-info">
+    <view v-if="isHomePage" class="site-info">
       <view class="site-title">😀😀😀</view>
       <!-- <Typing :text="text" /> -->
       <view class="typing">{{subtitle}}</view>
@@ -31,7 +33,7 @@
         ></text>
       </view>
     </view>
-    <view class="scroll-down" @click="pageScrollToContent()">
+    <view v-if="isHomePage" class="scroll-down" @click="pageScrollToContent()">
       <text
         class='iconfont icon-yel-unfold'
       ></text>
@@ -56,22 +58,7 @@ import { debounce } from '@/utils'
 import { methods } from 'uview-ui/libs/mixin/mixin';
 import { Typing } from '@/utils/Typing.js'
 export default {
-  name: "NavBar",
-  props: {
-    phoneHeight: {
-      default: 20,
-      type: Number
-    }
-  },
-  watch: {
-    phoneHeight: {
-      handler(newVal, oldVal) {
-        this.safeHeight = newVal
-      },
-      deep: true,
-      immediate: true
-    }
-  },
+  name: "my-navbar",
   data () {
     return {
       navVisible: false,
@@ -81,13 +68,29 @@ export default {
       ],
       subtitle: '',
       showWeiXin: false,
-      safeHeight: 0,
+      safeHeight: getApp().globalData.phoneHeight,
+      typing: null,
     };
+  },
+  props: {
+    isHomePage: {
+      default: true,
+      type: Boolean
+    }
+  },
+  computed: {
+    headerHeight() {
+      return `${this.isHomePage ? '100vh;' : `${40 + this.safeHeight}px;`}`
+    }
   },
   mounted () {
     this.onScroll()       // 监听滚动条事件
-    this.newTyping()      // 初始化打字机效果
-    
+    if(this.isHomePage) {
+      this.newTyping()      // 初始化打字机效果
+    }
+  },
+  destroyed () {
+    this.typing && this.typing.stopWriting()
   },
   methods: {
     onScroll () {
@@ -104,7 +107,7 @@ export default {
       });
     },
     newTyping () {
-      let typing = new Typing({
+      this.typing = new Typing({
         strings: this.text,
         changeCallback: (text) => { this.subtitle = text },
         startDelaySpeed: 150,
@@ -113,10 +116,16 @@ export default {
       });
     },
     showQQ () {
-      uni.navigateTo({url: '@/page/qqMailbox/index.vue'})
+      uni.redirectTo({url: '@/page/qqMailbox/index.vue'})
     },
     pageScrollToContent () {
       uni.pageScrollTo({selector: '.content'})
+    },
+    goHome () {
+      uni.redirectTo({ 
+        url: `../index/index`,
+        fail:(error)=>console.log(error)
+      })
     }
   }
 }
@@ -125,7 +134,6 @@ export default {
 <style lang="scss">
 @import '../../scss/base/mixin.scss';
 .header {
-  height: 100vh;
   width: 100vw;
   position: relative;
   &::before {

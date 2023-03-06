@@ -1,6 +1,6 @@
 @font-face {
 	font-family: LXGW;
-	src: url(https://static.netdun.net/sc/Fomalhaut/霞鹜文楷.woff2);
+	src: url('https://static.netdun.net/sc/Fomalhaut/霞鹜文楷.woff2');
 	font-display: swap;
 }
 
@@ -11,5 +11,5 @@ view {
 @import "./font/iconfont.scss",
 	// mixin
 	"./base/reset.scss",
-	"./base/setting.scss", "./base/mixin.scss", "./base/animation.scss",
+	"./base/setting.scss", "./base/mixin.scss",
 	"./base/defaults.scss";

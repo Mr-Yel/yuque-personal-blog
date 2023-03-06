@@ -2,7 +2,7 @@
   <view>
     <web-view
       :webview-styles="webviewStyles"
-      src="https://res.abeim.cn/api/qq/?qq=1845194320"
+      src="https://poki.cn/"
     ></web-view>
   </view>
 </template>

@@ -1,15 +1,15 @@
 <template>
   <view>
-    <NavBar :phoneHeight="phoneHeight"/>
+    <my-navbar></my-navbar>
     <view 
       class="content"
       :style="{paddingTop: `${phoneHeight + 40}px`}"
     >
       <view class="content-list">
         <view class="content-item" v-for="(item, index) in contentConfig.data" :key="index">
-          <ArticleCard v-if="item.type == 'ArticleCard'" :item="item"></ArticleCard>
-          <ArticleList v-if="item.type == 'ArticleList'" :item="item"></ArticleList>
-          <ReposList v-if="item.type == 'ReposList'" :item="item"></ReposList>
+          <ArticleCardAcquirer v-if="item.type == 'ArticleCard'" :data="item"></ArticleCardAcquirer>
+          <ArticleListAcquirer v-if="item.type == 'ArticleList'" :data="item"></ArticleListAcquirer>
+          <ReposList v-if="item.type == 'ReposList'" :data="item"></ReposList>
         </view>
       </view>
     </view>
@@ -19,17 +19,15 @@
 
 <script>
 import service from '@/service'
-import NavBar from '@/components/NavBar'
-import ArticleCard from '@/components/CardComponents/ArticleCard'
-import ArticleList from '@/components/CardComponents/ArticleList'
+import ArticleCardAcquirer from '@/components/ComponentDataAcquirer/ArticleCardAcquirer'
+import ArticleListAcquirer from '@/components/ComponentDataAcquirer/ArticleListAcquirer'
 import ReposList from '@/components/CardComponents/ReposList'
 import { contentConfig } from '@/config/contentConfig'
 
 export default {
   components: {
-    NavBar,
-    ArticleCard,
-    ArticleList,
+    ArticleCardAcquirer,
+    ArticleListAcquirer,
     ReposList,
   },
   data () {
@@ -43,19 +41,8 @@ export default {
       contentConfig: contentConfig,
     }
   },
-  mounted () {
-    console.log('2222222',this.phoneHeight1);
-    this.initSafeHeight() // 初始化安全高度
-  },
+  mounted () { },
   methods: {
-    initSafeHeight () {
-      let _that = this
-      uni.getSystemInfo({
-        success: function (res) {
-          _that.phoneHeight = res.statusBarHeight
-        }
-      })
-    },
     aaa () {
       uni.navigateTo({ url: '../qqMailbox/index' ,fail:(error)=>console.log(error)})
     }
@@ -72,7 +59,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 40rpx;
   .content-list {
     width: 100%;
     .content-item {

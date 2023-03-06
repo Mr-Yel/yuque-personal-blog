@@ -33,5 +33,10 @@ const service = {
       data
     })
   },
+  getReposDetail(nameSpace) {
+    return httpService.get({
+      url: `${CONFIG.API}/repos/${nameSpace}`,
+    })
+  },
 }
 export default service

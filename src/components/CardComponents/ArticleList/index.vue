@@ -2,8 +2,8 @@
   <CardFrame class="ArticleList">
     <view class="ArticleList_content">
       <u-swiper
-        :loading="loading"
-        :list="articleList"
+        :loading="!data.length"
+        :list="data"
         keyName="image"
         circular
         :autoplay="true"
@@ -18,16 +18,16 @@
       >
         <view
           class="indicator__dot"
-          v-for="(item, index) in articleList"
+          v-for="(item, index) in data"
           :key="index"
           :class="[index === current && 'indicator__dot--active']"
         >
         </view>
       </view>
       <view class="ArticleList_item time">{{ currentUpdateTime }}</view>
-      <view class="ArticleList_item title"><text>{{ articleList[current].title }}</text></view>
-      <view class="ArticleList_item description"><text>{{ articleList[current].description }}</text></view>
-      <button class="ArticleList_item button">详情</button>
+      <view class="ArticleList_item title"><text>{{ data[current].title }}</text></view>
+      <view class="ArticleList_item description"><text>{{ data[current].description }}</text></view>
+      <button class="ArticleList_item button" @click="goToArticleDetail">详情</button>
     </view>
   </CardFrame>
 </template>
@@ -42,33 +42,31 @@ export default {
     CardFrame
   },
   props: {
-    item: {
-      default: {},
-      type: Object
+    data: {
+      default: [],
+      type: Array
     }
   },
   data () {
     return {
-      loading: true,
       current: 0,
-      articleList: [],
     };
   },
   computed: {
     currentUpdateTime () {
-        return this.$dayjs(this.articleList[this.current] && this.articleList[this.current].created_at).format('YYYY-MM-DD')
+        return this.$dayjs(this.data[this.current] && this.data[this.current].created_at).format('YYYY-MM-DD')
     }
   },
-  async mounted () {
-    this.loading = true
-    const nameSpace = this.item.nameSpace
-    let res = await service.getArticleListInfo(nameSpace)
-    if (res && res.data && res.data.data) {
-      this.loading = false
-      this.articleList = res.data.data.map(item => ({
-        ...item,
-        image: item.cover,
-      }))
+  methods: {
+    goToArticleDetail() {
+      const articleItem = this.data[this.current]
+      if(articleItem && articleItem.slug && articleItem.nameSpace) {
+        const { slug, nameSpace } = articleItem
+        uni.redirectTo({ 
+          url: `../articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`,
+          fail:(error)=>console.log(error)
+        })
+      }
     }
   }
 }

@@ -3,7 +3,7 @@
     <view class="ReposList_title">我的知识库</view>
     <view class="ReposList_content">
       <view class="ReposList_item" v-for="(repos, index) in reposListInfo.slice(0,5)" :key="index">
-        <view class="repos_card">
+        <view class="repos_card" @click="goToReposDetailList(repos)">
          <view class="repos_title">{{repos.name}}({{repos.items_count}})</view> 
          <text class="iconfont icon-yel-enter"></text> 
         </view>  
@@ -28,7 +28,7 @@ export default {
     CardFrame
   },
   props: {
-    item: {
+    data: {
       default: {},
       type: Object
     }
@@ -43,6 +43,15 @@ export default {
     let res = await service.getReposListInfo(id)
     if(res && res.data && res.data.data) {
       this.reposListInfo = res.data.data
+    }
+  },
+  methods: {
+    goToReposDetailList(repos) {
+      const { namespace } = repos
+      uni.redirectTo({ 
+        url: `../reposDetailList/index?nameSpace=${namespace}`,
+        fail:(error)=>console.log(error)
+      })
     }
   }
 }

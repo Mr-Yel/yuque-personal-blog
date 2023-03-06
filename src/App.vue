@@ -3,13 +3,12 @@ import service from '@/service'
 import { storage } from '@/utils/storage'
 
 export default {
-  data () {
-    return {
-      phoneHeight1: 0,
-    }
+  globalData: {
+    phoneHeight: 0
   },
   onLaunch: async function () {
-    this.initSafeHeight() // 初始化安全高度
+    let phoneHeight = await this.initSafeHeight()// 初始化安全高度
+    this.globalData.phoneHeight = phoneHeight  
     let res = await service.getUserInfo()
     if(res && res.data && res.data.data) {
       const userInfo = res.data.data
@@ -26,16 +25,14 @@ export default {
   },
   methods: {
     initSafeHeight () {
-      return new Promise()
-      let _that = this
-      uni.getSystemInfo({
-        success: function (res) {
-          _that.phoneHeight1 = res.statusBarHeight
-        }
-      })
-    },
-    aaa () {
-      uni.navigateTo({ url: '../qqMailbox/index' ,fail:(error)=>console.log(error)})
+      return new Promise(function(resolve, reject){
+        uni.getSystemInfo({
+          success: function (res) {
+            resolve(res.statusBarHeight)
+          }
+        })
+      });
+     
     }
   }
 }

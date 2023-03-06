@@ -1,25 +1,24 @@
 <template>
   <CardFrame class="ArticleCard">
-    <view v-if="!loading" class="ArticleCard_img" @click="goToArticleDetail">
-      <u--image :showLoading="true" :src="articleDetail.cover"></u--image>
+    <view v-if="data" class="ArticleCard_img" @click="goToArticleDetail">
+      <u-image :showLoading="true" :src="data.cover"></u-image>
     </view>
-    <view v-if="!loading" class="ArticleCard_info">
-      <view class="ArticleCard_title">{{ articleDetail.title }}</view>
+    <view v-if="data" class="ArticleCard_info">
+      <view class="ArticleCard_title">{{ data.title }}</view>
       <view class="ArticleCard_content">
-        <text v-if="articleDetail.created_at !== undefined">⏰发布于 {{ UpdateTime }} |</text>
-        <text v-if="articleDetail.updated_at !== undefined">⏳️最后更新 {{ createTime }} |</text>
-        <text v-if="articleDetail.word_count !== undefined">📄文章字数 {{ articleDetail.word_count }} |</text>
-        <text v-if="articleDetail.likes_count !== undefined">{{ articleDetail.likes_count }}个赞👍 |</text>
-        <text v-if="articleDetail.comments_count !== undefined">{{ articleDetail.comments_count }}条评论</text>
+        <text v-if="data.created_at !== undefined"> ⏰ 发布于 {{ UpdateTime }} |</text>
+        <text v-if="data.updated_at !== undefined"> ⏳️ 最后更新 {{ createTime }} |</text>
+        <text v-if="data.word_count !== undefined"> 📄 文章字数 {{ data.word_count }} |</text>
+        <text v-if="data.likes_count !== undefined"> 👍 {{ data.likes_count }}个赞 |</text>
+        <text v-if="data.comments_count !== undefined"> 💬 {{ data.comments_count }}条评论</text>
       </view>
     </view>
-    <u-loading-icon v-if="loading" text="加载中" textSize="18"></u-loading-icon>
+    <u-loading-icon v-if="!data" text="加载中" textSize="18"></u-loading-icon>
   </CardFrame>
 </template>
   
 <script>
 import CardFrame from '@/components/CardComponents/CardFrame'
-import service from '@/service'
 
 export default {
   name: "ArticleCard",
@@ -27,8 +26,8 @@ export default {
     CardFrame
   },
   props: {
-    item: {
-      default: {},
+    data: {
+      default: null,
       type: Object
     }
   },
@@ -40,31 +39,20 @@ export default {
   },
   computed: {
     UpdateTime () {
-        return this.$dayjs(this.articleDetail && this.articleDetail.updated_at).format('YYYY-MM-DD')
+        return this.$dayjs(this.data && this.data.updated_at).format('YYYY-MM-DD')
     },
     createTime () {
-        return this.$dayjs(this.articleDetail && this.articleDetail.created_at).format('YYYY-MM-DD')
-    }
-  },
-  async mounted () {
-    this.loading = true
-    const { nameSpace, slug } = this.item
-    let res = await service.getArticleDetail(nameSpace, slug)
-    if (res && res.data && res.data.data) {
-      this.loading = false
-      this.articleDetail = res.data.data
-      console.log(this.articleDetail);
-      
+        return this.$dayjs(this.data && this.data.created_at).format('YYYY-MM-DD')
     }
   },
   methods: {
     goToArticleDetail() {
-      console.log(1111);
-      console.log(this.item);
-      if(this.item && this.item.nameSpace && this.item.slug) {
-        const { nameSpace, slug } = this.item
-        uni.navigateTo({ url: `../articleDetail/articleDetail?nameSpace=${nameSpace}&slug=${slug}`,
-        fail:(error)=>console.log(error)})
+      if(this.data && this.data.nameSpace && this.data.slug) {
+        const { nameSpace, slug } = this.data
+        uni.redirectTo({ 
+          url: `../articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`,
+          fail:(error)=>console.log(error)
+        })
       }
     }
   }

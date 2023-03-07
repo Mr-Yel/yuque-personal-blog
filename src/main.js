@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import App from './App'
 import uView from 'uview-ui';
-var dayjs = require('dayjs');
+import store from '@/store/index'
+import routerCtr from '@/utils/router'
 import "./scss/main.scss";
 
 Vue.use(uView);
 
+var dayjs = require('dayjs');
+
 Vue.config.productionTip = false
 Vue.prototype.$dayjs = dayjs;
+Vue.prototype.$routerGoBack = routerCtr.routerGoBack;
+Vue.prototype.$routerPush = routerCtr.routerPush;
 
 Vue.mixin({
   onPageScroll (res) {
@@ -19,6 +24,7 @@ Vue.mixin({
 App.mpType = 'app'
 
 const app = new Vue({
-  ...App
+  ...App,
+  store: store, 
 })
 app.$mount()

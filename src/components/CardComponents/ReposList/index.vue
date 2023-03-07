@@ -48,16 +48,13 @@ export default {
   methods: {
     goToReposDetailList(repos) {
       const { namespace } = repos
-      uni.redirectTo({ 
-        url: `../reposDetailList/index?nameSpace=${namespace}`,
-        fail:(error)=>console.log(error)
-      })
+      this.$routerPush(`/pages/reposDetailList/index?nameSpace=${namespace}`)
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .ReposList {
   font-size: 16px;
   .ReposList_title {

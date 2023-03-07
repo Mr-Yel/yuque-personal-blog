@@ -25,8 +25,8 @@
         </view>
       </view>
       <view class="ArticleList_item time">{{ currentUpdateTime }}</view>
-      <view class="ArticleList_item title"><text>{{ data[current].title }}</text></view>
-      <view class="ArticleList_item description"><text>{{ data[current].description }}</text></view>
+      <view class="ArticleList_item title">{{ data[current].title }}</view>
+      <view class="ArticleList_item description">{{ data[current].description }}</view>
       <button class="ArticleList_item button" @click="goToArticleDetail">详情</button>
     </view>
   </CardFrame>
@@ -62,17 +62,14 @@ export default {
       const articleItem = this.data[this.current]
       if(articleItem && articleItem.slug && articleItem.nameSpace) {
         const { slug, nameSpace } = articleItem
-        uni.redirectTo({ 
-          url: `../articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`,
-          fail:(error)=>console.log(error)
-        })
+        this.$routerPush(`/pages/articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`)
       }
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @mixin mul-text-truncate($lines: 2) {
   /* 控制宽度 */
   width: 490rpx;
@@ -124,9 +121,7 @@ export default {
     height: 48px;
     display: flex;
     align-items: center;
-    text {
-      @include mul-text-truncate(2);
-    }
+    @include mul-text-truncate(2);
   }
   &.description {
     color: #4c4948;
@@ -136,9 +131,7 @@ export default {
     height: 60px;
     display: flex;
     align-items: center;
-    text {
-      @include mul-text-truncate(3);
-    }
+    @include mul-text-truncate(3);
   }
   &.button {
     background-color: rgb(57, 197, 187);

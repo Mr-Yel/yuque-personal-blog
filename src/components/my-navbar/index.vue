@@ -44,6 +44,7 @@
     >
       <view class="warp">
         <image
+          class="image"
           src="https://mr-yel.github.io/assets/yel-uni-app-blog/yel.jpg"
           @tap.stop
           :show-menu-by-longpress="true"
@@ -116,22 +117,19 @@ export default {
       });
     },
     showQQ () {
-      uni.redirectTo({url: '@/page/qqMailbox/index.vue'})
+      console.log('show QQ');
     },
     pageScrollToContent () {
       uni.pageScrollTo({selector: '.content'})
     },
     goHome () {
-      uni.redirectTo({ 
-        url: `../index/index`,
-        fail:(error)=>console.log(error)
-      })
+      this.$routerPush(`/pages/index/index`)
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '../../scss/base/mixin.scss';
 .header {
   width: 100vw;
@@ -227,7 +225,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100%;
-  image {
+  .image {
     height: 320px;
     width: 320px;
   }

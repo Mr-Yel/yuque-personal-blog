@@ -1,7 +1,7 @@
 <template>
   <CardFrame class="ArticleCard">
     <view v-if="data" class="ArticleCard_img" @click="goToArticleDetail">
-      <u-image :showLoading="true" :src="data.cover"></u-image>
+      <u-image :showLoading="true" :src="data.cover || ''"></u-image>
     </view>
     <view v-if="data" class="ArticleCard_info">
       <view class="ArticleCard_title">{{ data.title }}</view>
@@ -27,7 +27,7 @@ export default {
   },
   props: {
     data: {
-      default: null,
+      default: {},
       type: Object
     }
   },
@@ -49,17 +49,14 @@ export default {
     goToArticleDetail() {
       if(this.data && this.data.nameSpace && this.data.slug) {
         const { nameSpace, slug } = this.data
-        uni.redirectTo({ 
-          url: `../articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`,
-          fail:(error)=>console.log(error)
-        })
+        this.$routerPush(`/pages/articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`)
       }
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @mixin mul-text-truncate($lines: 2) {
   /* 控制宽度 */
   width: 490rpx;
@@ -83,9 +80,7 @@ export default {
     height: 48px;
     display: flex;
     align-items: center;
-    text {
-      @include mul-text-truncate(2);
-    }
+    @include mul-text-truncate(2);
   }
 }
 </style>

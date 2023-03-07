@@ -20,7 +20,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .CardFrame {
   margin-top: 20rpx;
   padding: 20px;

@@ -5,7 +5,7 @@
       <view class="ReposList_item" v-for="(repos, index) in reposListInfo.slice(0,5)" :key="index">
         <view class="repos_card" @click="goToReposDetailList(repos)">
          <view class="repos_title">{{repos.name}}({{repos.items_count}})</view> 
-         <text class="iconfont icon-yel-enter"></text> 
+         <text class="iconfont icon-enter"></text> 
         </view>  
       </view>
       <view class="look_more" v-if="reposListInfo.length > 5" @click="goToReposList()">查看更多</view>

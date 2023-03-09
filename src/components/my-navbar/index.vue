@@ -13,14 +13,16 @@
           class="nav-left-button back"
           @click="routerGoBack"
         >⬅️</text>
-        <text
+        <!-- <text
           class="nav-left-button more"
           @click="aaa"
-        >🤣</text>
-        <text class="nav-left-button setting">⚙️</text>
-        <text class="nav-left-button search">🔍</text>
+        >🤣</text> -->
+        <!-- <text class="nav-left-button setting">⚙️</text> -->
+        <!-- <text class="nav-left-button search">🔍</text> -->
+        <text class="nav-left-button light">🌞</text>
+        <text class="nav-left-button dark">🌛</text>
       </view>
-      <view class="nav-content" @click="goHome()">Yellll🍦</view>
+      <view class="nav-content"><text @click="goHome()">Yellll🍦</text></view>
       <view class="nav-right"></view>
     </view>
     <view v-if="isHomePage" class="site-info">
@@ -40,7 +42,7 @@
     </view>
     <view v-if="isHomePage" class="scroll-down" @click="pageScrollToContent()">
       <text
-        class='iconfont icon-yel-unfold'
+        class='iconfont icon-unfold'
       ></text>
     </view>
     <u-overlay
@@ -56,13 +58,18 @@
         ></image>
       </view>
     </u-overlay>
+    <FooterTool />
   </view>
 </template>
   
 <script>
 import { Typing } from '@/utils/Typing.js'
+import FooterTool from './components/FooterTool'
 export default {
   name: "my-navbar",
+  components: {
+    FooterTool
+  },
   data () {
     return {
       navVisible: false,
@@ -129,6 +136,7 @@ export default {
       uni.pageScrollTo({selector: '.content'})
     },
     goHome () {
+      return
       this.$routerPush(`/pages/index/index`)
     },
     routerGoBack () {

@@ -23,13 +23,14 @@ export default {
     };
   },
   async mounted () {
-    const nameSpace = this.data.nameSpace
-    let res = await service.getArticleListInfo(nameSpace)
+    console.log(this.data);
+    const namespace = this.data.namespace
+    let res = await service.getArticleListInfo(namespace)
     if (res && res.data && res.data.data) {
       this.articleList = res.data.data.map(item => ({
         ...item,
         image: item.cover,
-        nameSpace,
+        namespace,
       }))
     }
   }

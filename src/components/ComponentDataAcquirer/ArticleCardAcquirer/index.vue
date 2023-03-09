@@ -23,10 +23,10 @@ export default {
     };
   },
   async mounted () {
-    const { nameSpace, slug } = this.data
-    let res = await service.getArticleDetail(nameSpace, slug)
+    const { namespace, slug } = this.data
+    let res = await service.getArticleDetail(namespace, slug)
     if (res && res.data && res.data.data) {
-      this.articleDetail = {...res.data.data, nameSpace}
+      this.articleDetail = {...res.data.data, namespace}
     }
   }
 }

@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
@@ -16,6 +16,12 @@
 			"path": "pages/reposDetailList/index",
 			"style": {
 				"navigationBarTitleText": "仓库详情列表"
+			}
+		},
+		{
+			"path": "pages/reposList/index",
+			"style": {
+				"navigationBarTitleText": "仓库列表"
 			}
 		},
 		{

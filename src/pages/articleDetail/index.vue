@@ -10,6 +10,9 @@
         <text v-if="articleDetail.likes_count !== undefined"> 👍 {{ articleDetail.likes_count }}个赞 |</text>
         <text v-if="articleDetail.comments_count !== undefined"> 💬 {{ articleDetail.comments_count }}条评论</text>
       </view>
+      <view class="content">
+        
+      </view>
     </view>
     <view class="detail-wrapper">
       <view class="copytext" @click="copyLink()">语雀原文链接</view>
@@ -39,7 +42,7 @@ export default {
     }
   },
   props: {
-    nameSpace: {
+    namespace: {
       default: '',
       type: String
     },
@@ -64,7 +67,7 @@ export default {
   },
   async mounted () {
     this.loading = true
-    let res = await service.getArticleDetail(this.nameSpace, this.slug)
+    let res = await service.getArticleDetail(this.namespace, this.slug)
     if (res && res.data && res.data.data) {
       this.loading = false
       this.articleDetail = res.data.data

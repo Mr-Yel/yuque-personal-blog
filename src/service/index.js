@@ -8,14 +8,14 @@ const service = {
       data
     })
   },
-  getArticleListInfo(nameSpace) {
+  getArticleListInfo(namespace) {
     return httpService.get({
-      url: `${CONFIG.API}/repos/${nameSpace}/docs`,
+      url: `${CONFIG.API}/repos/${namespace}/docs`,
     })
   },
-  getArticleDetail(nameSpace, slug) {
+  getArticleDetail(namespace, slug) {
     return httpService.get({
-      url: `${CONFIG.API}/repos/${nameSpace}/docs/${slug}`,
+      url: `${CONFIG.API}/repos/${namespace}/docs/${slug}`,
     })
   },
   getUserInfo() {
@@ -33,9 +33,9 @@ const service = {
       data
     })
   },
-  getReposDetail(nameSpace) {
+  getReposDetail(namespace) {
     return httpService.get({
-      url: `${CONFIG.API}/repos/${nameSpace}`,
+      url: `${CONFIG.API}/repos/${namespace}`,
     })
   },
 }

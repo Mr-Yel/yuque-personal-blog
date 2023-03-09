@@ -8,7 +8,7 @@
          <text class="iconfont icon-yel-enter"></text> 
         </view>  
       </view>
-      <view class="look_more" v-if="reposListInfo.length > 5">查看更多</view>
+      <view class="look_more" v-if="reposListInfo.length > 5" @click="goToReposList()">查看更多</view>
     </view>
     <u-empty 
       v-if="reposListInfo.length == 0"
@@ -48,7 +48,10 @@ export default {
   methods: {
     goToReposDetailList(repos) {
       const { namespace } = repos
-      this.$routerPush(`/pages/reposDetailList/index?nameSpace=${namespace}`)
+      this.$routerPush(`/pages/reposDetailList/index?namespace=${namespace}`)
+    },
+    goToReposList() {
+      this.$routerPush(`/pages/reposList/index`)
     }
   }
 }

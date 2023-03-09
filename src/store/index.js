@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state () {
     return {
       count: 0,
-      pageRouter: [],
+      pageRouter: ['/pages/index/index'], // 初始为首页
     }
   },
   mutations: {
@@ -18,11 +18,24 @@ export default new Vuex.Store({
     routerPush(state, url) {
       state.pageRouter.push(url)
       console.log('state.pageRouter',state.pageRouter);
+    },
+    routerPop(state) {
+      state.pageRouter.pop()
+      console.log('state.pageRouter',state.pageRouter);
     }
   },
   getters: {
+    prevPage (state) {
+      if(state.pageRouter.length > 1) {
+        return state.pageRouter[state.pageRouter.length-2]
+      }
+      return ''
+    },
     curPage (state) {
       return state.pageRouter[state.pageRouter.length-1]
+    },
+    curPageLength (state) {
+      return state.pageRouter.length-1
     }
   }
 })

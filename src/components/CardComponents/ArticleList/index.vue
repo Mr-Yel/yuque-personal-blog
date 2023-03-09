@@ -60,9 +60,9 @@ export default {
   methods: {
     goToArticleDetail() {
       const articleItem = this.data[this.current]
-      if(articleItem && articleItem.slug && articleItem.nameSpace) {
-        const { slug, nameSpace } = articleItem
-        this.$routerPush(`/pages/articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`)
+      if(articleItem && articleItem.slug && articleItem.namespace) {
+        const { slug, namespace } = articleItem
+        this.$routerPush(`/pages/articleDetail/index?namespace=${namespace}&slug=${slug}`)
       }
     }
   }

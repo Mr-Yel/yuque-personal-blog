@@ -1,16 +1,19 @@
 import store from '@/store/index'
 
 function routerGoBack() {
-	console.log(store);
+  let url = store.getters.prevPage
+  uni.redirectTo({ 
+    url,
+    success: () => { store.commit('routerPop') },
+    fail:(error)=>console.log(error)
+  })
 }
 
 function routerPush(url) {
-  console.log(store);
-  console.log(store.getters.curPage);
-  store.commit('routerPush', url)
   uni.redirectTo({ 
     url,
-    fail:(error)=>console.log(error)
+    success: () => { store.commit('routerPush', url) },
+    fail:(error) => console.log(error)
   })
 }
 

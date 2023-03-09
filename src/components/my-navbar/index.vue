@@ -9,11 +9,16 @@
     >
       <view class="nav-left">
         <text
-          class="more"
+          v-if="showGoBack"
+          class="nav-left-button back"
+          @click="routerGoBack"
+        >⬅️</text>
+        <text
+          class="nav-left-button more"
           @click="aaa"
         >🤣</text>
-        <text class="setting">⚙️</text>
-        <text class="search">🔍</text>
+        <text class="nav-left-button setting">⚙️</text>
+        <text class="nav-left-button search">🔍</text>
       </view>
       <view class="nav-content" @click="goHome()">Yellll🍦</view>
       <view class="nav-right"></view>
@@ -55,8 +60,6 @@
 </template>
   
 <script>
-import { debounce } from '@/utils'
-import { methods } from 'uview-ui/libs/mixin/mixin';
 import { Typing } from '@/utils/Typing.js'
 export default {
   name: "my-navbar",
@@ -82,6 +85,9 @@ export default {
   computed: {
     headerHeight() {
       return `${this.isHomePage ? '100vh;' : `${40 + this.safeHeight}px;`}`
+    },
+    showGoBack() {
+      return this.$store.getters.curPageLength
     }
   },
   mounted () {
@@ -124,6 +130,9 @@ export default {
     },
     goHome () {
       this.$routerPush(`/pages/index/index`)
+    },
+    routerGoBack () {
+      this.$routerGoBack()
     }
   }
 }
@@ -158,6 +167,9 @@ export default {
   z-index: 999;
   .nav-left {
     position: absolute;
+    .nav-left-button {
+      padding-right: 10rpx;
+    }
   }
   .nav-content {
     flex: 1;

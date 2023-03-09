@@ -47,9 +47,9 @@ export default {
   },
   methods: {
     goToArticleDetail() {
-      if(this.data && this.data.nameSpace && this.data.slug) {
-        const { nameSpace, slug } = this.data
-        this.$routerPush(`/pages/articleDetail/index?nameSpace=${nameSpace}&slug=${slug}`)
+      if(this.data && this.data.namespace && this.data.slug) {
+        const { namespace, slug } = this.data
+        this.$routerPush(`/pages/articleDetail/index?namespace=${namespace}&slug=${slug}`)
       }
     }
   }

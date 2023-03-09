@@ -8,7 +8,7 @@
         <text v-if="reposDetail.created_at !== undefined"> ⏰ 发布于 {{ createTime }} |</text>
         <text v-if="reposDetail.updated_at !== undefined"> ⏳️ 最后更新 {{ updateTime }} |</text>
         <text v-if="reposDetail.items_count !== undefined"> 📄 文章个数 {{ reposDetail.items_count }} |</text>
-        <text v-if="reposDetail.likes_count !== undefined"> 👍 {{ reposDetail.likes_count }}个赞 |</text>
+        <text v-if="reposDetail.likes_count !== undefined"> 👍 {{ reposDetail.likes_count }}个赞</text>
       </view>
     </view>
     <view class="content-list">
@@ -44,7 +44,7 @@ export default {
     }
   },
   props: {
-    nameSpace: {
+    namespace: {
       default: '',
       type: String
     }
@@ -52,7 +52,7 @@ export default {
   methods: {
     async initReposDetail() {
       this.loading = true
-      let res = await service.getReposDetail(this.nameSpace)
+      let res = await service.getReposDetail(this.namespace)
       if (res && res.data && res.data.data) {
         this.loading = false
         this.reposDetail = res.data.data
@@ -60,10 +60,10 @@ export default {
     },
     async initReposDetailList() {
       this.loading = true
-      let res = await service.getArticleListInfo(this.nameSpace)
+      let res = await service.getArticleListInfo(this.namespace)
       if (res && res.data && res.data.data) {
         this.loading = false
-        this.reposDetailList = res.data.data
+        this.reposDetailList = res.data.data.map(e=>({...e, namespace: this.namespace}))
       }
     },
   },

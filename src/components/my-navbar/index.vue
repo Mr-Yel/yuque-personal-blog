@@ -22,7 +22,7 @@
         <text class="nav-left-button light">🌞</text>
         <text class="nav-left-button dark">🌛</text>
       </view>
-      <view class="nav-content"><text @click="goHome()">Yellll🍦</text></view>
+      <view class="nav-content"><text @click="goHome()">{{ title }}</text></view>
       <view class="nav-right"></view>
     </view>
     <view v-if="isHomePage" class="site-info">
@@ -65,6 +65,8 @@
 <script>
 import { Typing } from '@/utils/Typing.js'
 import FooterTool from './components/FooterTool'
+import { WELCOME_TEXT, TITLE } from '@/config'
+
 export default {
   name: "my-navbar",
   components: {
@@ -73,10 +75,7 @@ export default {
   data () {
     return {
       navVisible: false,
-      text: [
-        'Welcome to Yelll\'s Personal blog!🤣🤣🤣',
-        'Hope you have a nice day!🍭🍭🍭',
-      ],
+      title: TITLE,
       subtitle: '',
       showWeiXin: false,
       safeHeight: getApp().globalData.phoneHeight,
@@ -122,7 +121,7 @@ export default {
     },
     newTyping () {
       this.typing = new Typing({
-        strings: this.text,
+        strings: WELCOME_TEXT,
         changeCallback: (text) => { this.subtitle = text },
         startDelaySpeed: 150,
         deleteSpeed: 50,

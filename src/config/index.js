@@ -10,3 +10,4 @@ export const WELCOME_TEXT = [
   'Hope you have a nice day!🍭🍭🍭',
 ]
 export const TITLE = 'Yellll🍦'
+export const WEIXIN_IMAGE = 'https://mr-yel.github.io/assets/yel-uni-app-blog/yel.jpg'

@@ -12,7 +12,7 @@
           v-if="showGoBack"
           class="nav-left-button back"
           @click="routerGoBack"
-        >⬅️</text>
+        >👈</text>
         <!-- <text
           class="nav-left-button more"
           @click="aaa"
@@ -52,7 +52,7 @@
       <view class="warp">
         <image
           class="image"
-          src="https://mr-yel.github.io/assets/yel-uni-app-blog/yel.jpg"
+          :src="weixinImage"
           @tap.stop
           :show-menu-by-longpress="true"
         ></image>
@@ -65,7 +65,7 @@
 <script>
 import { Typing } from '@/utils/Typing.js'
 import FooterTool from './components/FooterTool'
-import { WELCOME_TEXT, TITLE } from '@/config'
+import { WELCOME_TEXT, TITLE, WEIXIN_IMAGE } from '@/config'
 
 export default {
   name: "my-navbar",
@@ -76,6 +76,7 @@ export default {
     return {
       navVisible: false,
       title: TITLE,
+      weixinImage: WEIXIN_IMAGE,
       subtitle: '',
       showWeiXin: false,
       safeHeight: getApp().globalData.phoneHeight,
@@ -172,10 +173,11 @@ export default {
   display: flex;
   align-items: center;
   z-index: 999;
+  font-size: 40rpx;
   .nav-left {
     position: absolute;
     .nav-left-button {
-      padding-right: 10rpx;
+      padding-right: 20rpx;
     }
   }
   .nav-content {

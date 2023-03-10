@@ -51,6 +51,7 @@ export default {
   position: fixed;
   bottom: 20rpx;
   right: 20rpx;
+  z-index: 9999;
   .button {
     display: flex;
     align-items: center;

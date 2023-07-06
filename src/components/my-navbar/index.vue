@@ -5,22 +5,22 @@
     <view
       class="nav"
       :style="{paddingTop: `${safeHeight}px`}"
-      :class="navVisible ? 'nav-visible' : ''"
+      :class="navVisible || showNavVisible ? 'nav-visible' : ''"
     >
       <view class="nav-left">
         <text
           v-if="showGoBack"
-          class="nav-left-button back"
+          class="nav-left-button back iconfont icon-return"
           @click="routerGoBack"
-        >👈</text>
+        ></text>
         <!-- <text
           class="nav-left-button more"
           @click="aaa"
         >🤣</text> -->
         <!-- <text class="nav-left-button setting">⚙️</text> -->
         <!-- <text class="nav-left-button search">🔍</text> -->
-        <text class="nav-left-button light">🌞</text>
-        <text class="nav-left-button dark">🌛</text>
+        <!-- <text class="nav-left-button light">🌞</text>
+        <text class="nav-left-button dark">🌛</text> -->
       </view>
       <view class="nav-content"><text @click="goHome()">{{ title }}</text></view>
       <view class="nav-right"></view>
@@ -58,7 +58,7 @@
         ></image>
       </view>
     </u-overlay>
-    <FooterTool />
+    <FooterTool :footerToolCtr="footerToolCtr"/>
   </view>
 </template>
   
@@ -75,7 +75,6 @@ export default {
   data () {
     return {
       navVisible: false,
-      title: TITLE,
       weixinImage: WEIXIN_IMAGE,
       subtitle: '',
       showWeiXin: false,
@@ -84,9 +83,25 @@ export default {
     };
   },
   props: {
+    showNavVisible: {
+      type: Boolean
+    },
     isHomePage: {
       default: true,
       type: Boolean
+    },
+    title: {
+      default: TITLE,
+      type: String
+    },
+    footerToolCtr: {
+      type: Object,
+      default: () => ({ 
+        todo: true,
+        share: true,
+        top: true,
+        bottom: true,
+      }),
     }
   },
   computed: {

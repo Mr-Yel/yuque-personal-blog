@@ -43,9 +43,6 @@ export default {
   },
   mounted () { },
   methods: {
-    aaa () {
-      uni.navigateTo({ url: '../qqMailbox/index' ,fail:(error)=>console.log(error)})
-    }
   }
 }
 </script>

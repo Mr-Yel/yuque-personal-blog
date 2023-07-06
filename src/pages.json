@@ -29,6 +29,12 @@
 			"style": {
 				"navigationBarTitleText": "sss"
 			}
+		},
+		{
+			"path": "pages/todo/index",
+			"style": {
+				"navigationBarTitleText": "todo"
+			}
 		}
 	],
 	"globalStyle": {

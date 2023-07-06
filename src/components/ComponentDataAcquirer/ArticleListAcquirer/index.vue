@@ -23,7 +23,6 @@ export default {
     };
   },
   async mounted () {
-    console.log(this.data);
     const namespace = this.data.namespace
     let res = await service.getArticleListInfo(namespace)
     if (res && res.data && res.data.data) {

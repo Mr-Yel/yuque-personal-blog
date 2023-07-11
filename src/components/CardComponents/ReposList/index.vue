@@ -12,7 +12,6 @@
     </view>
     <u-empty 
       v-if="reposListInfo.length == 0"
-      icon="http://cdn.uviewui.com/uview/empty/data.png"
     ></u-empty>
   </CardFrame>
 </template>
